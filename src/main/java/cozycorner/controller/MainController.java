@@ -18,8 +18,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String welcomePage() {
-
-        return "index_test";
+        return "index";
     }
 
     private UserRepo userRepo;
