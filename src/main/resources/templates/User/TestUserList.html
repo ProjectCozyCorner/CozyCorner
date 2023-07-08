@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head />
+<body>
+<div class="container">
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>회원번호</th>
+                <th>회원명</th>
+                <th>회원비밀번호</th>
+                <th>회원별칭</th>
+                <th>회원이메일</th>
+                <th>이메일체크여부</th>
+                <th>회원등급</th>
+                <th>회원권한</th>
+                <th>회원가입일시</th>
+                <th>회원폰번호</th>
+                <th>회원프로필이미지</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.userPwd}"></td>
+                <td th:text="${user.userNickname}"></td>
+                <td th:text="${user.userEmail}"></td>
+                <td th:text="${user.emailCheck}"></td>
+                <td th:text="${user.userGrade}"></td>
+                <td th:text="${user.userRole}"></td>
+                <td th:text="${user.userInsertDate}"></td>
+                <td th:text="${user.userPhone}"></td>
+                <td th:text="${user.userProfile}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
