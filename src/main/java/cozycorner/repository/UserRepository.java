@@ -1,10 +1,12 @@
 package cozycorner.repository;
 
+import cozycorner.domain.Address;
 import cozycorner.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -24,5 +26,10 @@ public class UserRepository {
         return em.createQuery("select u from User u").getResultList();
     }
 
+    public List<Address> findUserAddressList(Long userId){
+        TypedQuery<Address> query = em.createQuery("select a from Address a where a.user.userId = :userId", Address.class);
+        query.setParameter("userId", userId);
+        return query.getResultList();
+    }
 
 }

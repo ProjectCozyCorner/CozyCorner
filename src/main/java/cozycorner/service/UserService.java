@@ -1,5 +1,6 @@
 package cozycorner.service;
 
+import cozycorner.domain.Address;
 import cozycorner.domain.User;
 import cozycorner.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,9 @@ public class UserService {
 
     public User findOne(Long userId){
         return userRepository.findOne(userId);
+    }
+
+    public List<Address> findUserAddresses(Long userId){
+        return userRepository.findUserAddressList(userId);
     }
 }
