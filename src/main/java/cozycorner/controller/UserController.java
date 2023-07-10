@@ -1,35 +1,47 @@
 package cozycorner.controller;
 
-import cozycorner.domain.Address;
 import cozycorner.domain.User;
 import cozycorner.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserService memberService;
 
-    @GetMapping("/users")
-    public String userList(Model model){
-        List<User> users = userService.findUsers();
-        model.addAttribute("users", users);
-        return "/User/TestUserList";
+//    @GetMapping("/users")
+//    public String userList(Model model){
+//        List<Member> members = memberService.findUsers();
+//        model.addAttribute("users", members);
+//        return "/User/TestUserList";
+//    }
+//
+//    @GetMapping("/user/{userId}/address")
+//    public String userAddressList(@PathVariable("userId") Long userId, Model model){
+//        List<Address> userAddresses = memberService.findUserAddresses(userId);
+//
+//        model.addAttribute("userAddresses", userAddresses);
+//        return "/User/TestUserAddressList";
+//    }
+
+    @PostMapping("/signup")
+    public String signup(User user) {
+        memberService.save(user);
+        return "redirect:/";
     }
 
-    @GetMapping("/user/{userId}/address")
-    public String userAddressList(@PathVariable("userId") Long userId, Model model){
-        List<Address> userAddresses = userService.findUserAddresses(userId);
-
-        model.addAttribute("userAddresses", userAddresses);
-        return "/User/TestUserAddressList";
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/login";
     }
 }

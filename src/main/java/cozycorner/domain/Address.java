@@ -14,7 +14,6 @@ public class Address {
     @Column(name = "address_id")
     private Long addressId;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

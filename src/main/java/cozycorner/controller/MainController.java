@@ -11,34 +11,42 @@ import java.util.List;
 public class MainController {
 
     @GetMapping("/home")
-    public String home(){
+    public String home() {
         return "index";
     }
 
     @GetMapping("/shop")
-    public String shop(){
+    public String shop() {
         return "shop";
     }
 
     @GetMapping("/cart")
-    public String cart(){
+    public String cart() {
         return "cart";
     }
 
     @GetMapping("/checkOut")
-    public String checkOut(){
+    public String checkOut() {
         return "checkout";
     }
 
     @GetMapping("/shopDetail")
-    public String shopDetail(){
+    public String shopDetail() {
         return "detail";
     }
 
     @GetMapping("/contact")
-    public String contact(){
+    public String contact() {
         return "contact";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
 }

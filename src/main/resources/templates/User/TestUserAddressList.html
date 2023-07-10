@@ -18,7 +18,7 @@
             <tbody>
             <tr th:each="userAddress : ${userAddresses}">
                 <td th:text="${userAddress.addressId}"></td>
-                <td th:text="${userAddress.user.userId}"></td>
+                <td th:text="${userAddress.getMember.userId}"></td>
                 <td th:text="${userAddress.userAddress}"></td>
                 <td th:text="${userAddress.userAddressDetail}"></td>
                 <td th:text="${userAddress.userZipcode}"></td>
