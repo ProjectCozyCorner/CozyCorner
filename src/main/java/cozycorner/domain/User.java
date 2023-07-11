@@ -1,11 +1,13 @@
 package cozycorner.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -47,11 +49,11 @@ public class User implements UserDetails {
     private String userGrade;
 
     @Column(name = "user_insert_date")
-    @Temporal(TemporalType.DATE)
-    private Date userInsertDate;
+    @CreationTimestamp
+    private LocalDateTime userInsertDate = LocalDateTime.now();
 
     @Builder
-    public User(Long userId, String userPwd, String userName, String userPhone, String email, String userNickname, String userProfile, String emailCheck, String userRole, String userGrade, Date userInsertDate) {
+    public User(Long userId, String userPwd, String userName, String userPhone, String email, String userNickname, String userProfile, String emailCheck, String userRole, String userGrade) {
         this.userId = userId;
         this.userPwd = userPwd;
         this.userName = userName;
@@ -62,21 +64,18 @@ public class User implements UserDetails {
         this.emailCheck = emailCheck;
         this.userRole = userRole;
         this.userGrade = userGrade;
-        this.userInsertDate = userInsertDate;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
-        for (String role : userRole.split(",")) {
-            roles.add(new SimpleGrantedAuthority(role));
-        }
+        roles.add(new SimpleGrantedAuthority(userRole));
         return roles;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return userName;
     }
 
     @Override
@@ -103,4 +102,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
