@@ -1,19 +1,18 @@
 package cozycorner.service;
 
+import cozycorner.domain.Address;
 import cozycorner.domain.User;
 import cozycorner.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
 
@@ -25,34 +24,15 @@ public class UserService implements UserDetailsService {
     /*
         회원조희
      */
-//    public List<Member> findUsers() {
-//        return memberRepository.findAll();
-//    }
-//
-//    public Member findOne(Long userId) {
-//        return memberRepository.findOne(userId);
-//    }
-//
-//    public List<Address> findUserAddresses(Long userId) {
-//        return memberRepository.findUserAddressList(userId);
-//    }
-
-    @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        return userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new UsernameNotFoundException((userEmail)));
+    public List<User> findUsers(){
+        return  userRepository.findAll();
     }
 
-    public Long save(User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setUserPwd(encoder.encode(user.getUserPwd()));
+    public User findOne(Long userId){
+        return userRepository.findOne(userId);
+    }
 
-        return userRepository.save(User.builder()
-                .userName(user.getUsername())
-                .userPhone(user.getUserPhone())
-                .email(user.getEmail())
-                .userRole(user.getUserRole())
-                .userPwd(user.getUserPwd()).build()).getUserId();
+    public List<Address> findUserAddresses(Long userId){
+        return userRepository.findUserAddressList(userId);
     }
 }
-

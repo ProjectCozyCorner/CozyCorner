@@ -1,8 +1,7 @@
 package cozycorner.config.security;
 
-import cozycorner.service.UserService;
+import cozycorner.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService memberService;
+    private final MemberService memberService;
 
     @Override
     public void configure(WebSecurity web) {

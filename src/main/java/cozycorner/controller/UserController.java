@@ -1,6 +1,7 @@
 package cozycorner.controller;
 
 import cozycorner.domain.User;
+import cozycorner.service.MemberService;
 import cozycorner.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService memberService;
+    private final UserService userService;
+    private final MemberService memberService;
 
 //    @GetMapping("/users")
 //    public String userList(Model model){
