@@ -1,14 +1,19 @@
 package cozycorner.controller;
 
+import cozycorner.domain.Goods;
+import cozycorner.service.GoodsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
+    private final GoodsService goodsService;
 
     @GetMapping("/home")
     public String home() {
@@ -16,7 +21,9 @@ public class MainController {
     }
 
     @GetMapping("/shop")
-    public String shop() {
+    public String shop(Model model) {
+        List<Goods> goodsList = goodsService.findGoodsList();
+        model.addAttribute("goods", goodsList);
         return "shop";
     }
 
@@ -30,8 +37,10 @@ public class MainController {
         return "checkout";
     }
 
-    @GetMapping("/shopDetail")
-    public String shopDetail() {
+    @GetMapping("/shopDetail/{goodsId}")
+    public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model) {
+        Goods one = goodsService.findOne(goodsId);
+        model.addAttribute("good", one);
         return "detail";
     }
 
