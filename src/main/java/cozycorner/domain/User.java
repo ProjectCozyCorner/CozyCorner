@@ -8,10 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter @Setter
@@ -51,6 +48,9 @@ public class User implements UserDetails {
     @Column(name = "user_insert_date")
     @CreationTimestamp
     private LocalDateTime userInsertDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
 
     @Builder
     public User(Long userId, String userPwd, String userName, String userPhone, String email, String userNickname, String userProfile, String emailCheck, String userRole, String userGrade) {
