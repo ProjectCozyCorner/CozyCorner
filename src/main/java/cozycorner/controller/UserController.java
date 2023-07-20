@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +19,14 @@ public class UserController {
 
     private final UserService userService;
     private final MemberService memberService;
+
+    @GetMapping("/user/{userId}/myPage")
+    public String userAbout(@PathVariable("userId") Long userId, Model model){
+        User user = userService.findOne(userId);
+        model.addAttribute("user", user);
+        return "/User/userInfo";
+    }
+
 
 //    @GetMapping("/users")
 //    public String userList(Model model){

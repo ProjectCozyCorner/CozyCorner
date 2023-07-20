@@ -59,5 +59,9 @@ public class MainController {
         return "signup";
     }
 
+    @GetMapping("/myPage")
+    public String myPage(){
+        return "myPage";
+    }
 
 }

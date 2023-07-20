@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPage</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+</head>
+<body>
+페이지
+<div style="visibility: hidden" id="userId" sec:authentication="principal.userId"></div>
+<input id="userAbout" type="button" class="btn btn-lg btn-info" value="회원 정보">
+<input id="orderList" type="button" class="btn btn-lg btn-info" value="주문 내역">
+
+<div id="text"></div>
+<div id="result">
+
+</div>
+</body>
+</html>
+
+<script>
+    const userId = document.getElementById("userId").textContent;
+
+    $("#orderList").click(function(){
+        alert("userId :" + userId);
+
+        $.ajax({
+            url : "/order/"+ userId + "/myPage",
+            method : "GET",
+            dataType : 'html'
+        })
+        .done(function(result){
+            $("#result").html(result);
+        })
+        .fail(function(xhr, status, errorThrown){
+            $("text").html("에러 발생 <br>")
+                .append("오류명 : " + errorThrown + "<br>")
+                .append("상태 : " + status)
+        })
+        .always(function (xhr, status){
+            $("#text").html("요청이 완료되었습니다.")
+        });
+    });
+
+
+    $("#userAbout").click(function(){
+        alert("userId :" + userId);
+
+        $.ajax({
+            url : "/user/"+ userId + "/myPage",
+            method : "GET",
+            dataType : 'html'
+        })
+        .done(function(result){
+            $("#result").html(result);
+        })
+        .fail(function(xhr, status, errorThrown){
+            $("text").html("에러 발생 <br>")
+                .append("오류명 : " + errorThrown + "<br>")
+                .append("상태 : " + status)
+        })
+        .always(function (xhr, status){
+            $("#text").html("요청이 완료되었습니다.")
+        });
+    });
+
+
+</script>

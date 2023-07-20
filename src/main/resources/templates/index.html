@@ -143,8 +143,9 @@
                             </div>
                             <a href="/contact" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div sec:authorize="isAuthenticated()" href="/user/logout">
+                        <div class="navbar-nav ml-auto py-0" sec:authorize="isAuthenticated()" href="/user/logout">
                             <a href="/logout" class="nav-item nav-link">Logout</a>
+                            <a href="/myPage" class="nav-item nav-link">MyPage</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0" sec:authorize="!isAuthenticated()">
                             <a href="/login" class="nav-item nav-link">Login</a>

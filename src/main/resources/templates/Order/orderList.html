@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>orderList</title>
+</head>
+<body>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>주문번호</th>
+    <th>주문일시</th>
+    <th>수령인</th>
+    <th>수령인 번호</th>
+    <th>수령인 우편번호</th>
+    <th>수령인 주소</th>
+    <th>수령인 상세주소</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${orders}">
+    <td th:text="${order.orderId}"></td>
+    <td th:text="${order.orderDate}"></td>
+    <td th:text="${order.receiverName}"></td>
+    <td th:text="${order.receiverPhone}"></td>
+    <td th:text="${order.receiverZipcode}"></td>
+    <td th:text="${order.receiverAddress}"></td>
+    <td th:text="${order.receiverAddressDetail}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
