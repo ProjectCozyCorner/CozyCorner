@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>orderList</title>
+</head>
+<body>
+<table class="table table-striped" border="1">
+  <thead>
+  <tr>
+    <th>상세 주문 번호</th>
+    <th>상품명</th>
+    <th>상품 가격</th>
+    <th>주문 수량</th>
+    <th>주문 상태</th>
+    <th>환불 여부</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="detail : ${orderDetails}">
+    <td th:text="${detail.orderDetailId}"></td>
+    <td th:text="${detail.goods.goodsName}"></td>
+    <td th:text="${detail.goodsPrice}"></td>
+    <td th:text="${detail.orderCount}"></td>
+    <td th:text="${detail.orderStatus}"></td>
+    <td th:text="${detail.refundCheck}"></td>
+  </tr>
+  </tbody>
+</table>
+<script>
+
+</script>
+</body>
+</html>

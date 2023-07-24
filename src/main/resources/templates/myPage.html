@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 </head>
 <body>
-페이지
+<a class="text-dark mb-2" href="/home"><i class="fa fa-angle-right mr-2"></i>Home</a>
 <div style="visibility: hidden" id="userId" sec:authentication="principal.userId"></div>
 <input id="userAbout" type="button" class="btn btn-lg btn-info" value="회원 정보">
 <input id="orderList" type="button" class="btn btn-lg btn-info" value="주문 내역">
@@ -15,15 +15,39 @@
 <div id="result">
 
 </div>
+<div id="orderDetail" style="border: 1px dashed black; width: 800px; height: auto">
+
+</div>
 </body>
 </html>
 
 <script>
     const userId = document.getElementById("userId").textContent;
 
-    $("#orderList").click(function(){
-        alert("userId :" + userId);
 
+    function orderDetail(orderId){
+        $.ajax({
+            url : "/order/"+ orderId + "/orderDetailList",
+            method : "GET",
+            dataType : 'html'
+        })
+            .done(function(result){
+                $("#orderDetail").html(result);
+            })
+            .fail(function(xhr, status, errorThrown){
+                $("text").html("에러 발생 <br>")
+                    .append("오류명 : " + errorThrown + "<br>")
+                    .append("상태 : " + status)
+            })
+            .always(function (xhr, status){
+                $("#text").html("요청이 완료되었습니다.")
+            });
+    }
+
+
+    $("#orderList").click(function(){
+        // alert("userId :" + userId);
+        $("#orderDetail").empty();
         $.ajax({
             url : "/order/"+ userId + "/myPage",
             method : "GET",
@@ -44,8 +68,8 @@
 
 
     $("#userAbout").click(function(){
-        alert("userId :" + userId);
-
+        // alert("userId :" + userId);
+        $("#orderDetail").empty();
         $.ajax({
             url : "/user/"+ userId + "/myPage",
             method : "GET",
