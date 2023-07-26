@@ -27,9 +27,17 @@ public class OrderDetail {
     @Column(name = "goods_price")
     private Integer goodsPrice;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
-
     @Column(name = "refund_check")
     private String refundCheck;
+
+
+    public static OrderDetail createOrderDetail(Goods good, int orderPrice, int count){
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setGoods(good);
+        orderDetail.setGoodsPrice(orderPrice);
+        orderDetail.setOrderCount(count);
+
+        good.removeStock(count);
+        return orderDetail;
+    }
 }

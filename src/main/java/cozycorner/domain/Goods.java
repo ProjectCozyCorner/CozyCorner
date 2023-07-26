@@ -1,5 +1,6 @@
 package cozycorner.domain;
 
+import cozycorner.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,4 +41,14 @@ public class Goods {
 
     @Column(name = "goods_hits")
     private Integer goodsHits;
+
+    public void addStock(int quantity) {this.goodsStock += quantity;}
+
+    public void removeStock(int quantity){
+        int restStock = this.goodsStock - quantity;
+        if(restStock < 0) {
+            throw new NotEnoughStockException("Need More Stock!");
+        }
+        this.goodsStock = restStock;
+    }
 }

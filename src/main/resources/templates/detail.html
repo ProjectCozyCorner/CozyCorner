@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -197,86 +197,87 @@
                 </div>
             </div>
 
-            <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold" th:text="${good.goodsName}"></h3>
-                <div class="d-flex mb-3">
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
+            <form role="form" action="/order/checkOut" method="post" th:object="${checkOutForm}">
+                <input type="hidden" name="goodsId" th:value="${good.goodsId}">
+                <div class="col-lg-7 pb-5">
+                    <h3 class="font-weight-semi-bold" th:text="${good.goodsName}"></h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star-half-alt"></small>
+                            <small class="far fa-star"></small>
+                        </div>
+                        <small class="pt-1" th:text="${good.goodsHits}"></small>
                     </div>
-                    <small class="pt-1" th:text="${good.goodsHits}"></small>
-                </div>
-                <h3 class="font-weight-semi-bold mb-4" th:text="${good.goodsPrice}"></h3>
-                <p class="mb-4" th:text="${good.goodsDesc}"></p>
-                <div class="d-flex mb-3">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                    <form>
+                    <h3 class="font-weight-semi-bold mb-4" th:text="${good.goodsPrice}"></h3>
+                    <p class="mb-4" th:text="${good.goodsDesc}"></p>
+                    <div class="d-flex mb-3">
+                        <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-1" name="size">
+                            <input type="radio" class="custom-control-input" id="size-1" name="size" value="XS">
                             <label class="custom-control-label" for="size-1">XS</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-2" name="size">
+                            <input type="radio" class="custom-control-input" id="size-2" name="size" value="S">
                             <label class="custom-control-label" for="size-2">S</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-3" name="size">
+                            <input type="radio" class="custom-control-input" id="size-3" name="size" value="M">
                             <label class="custom-control-label" for="size-3">M</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-4" name="size">
+                            <input type="radio" class="custom-control-input" id="size-4" name="size" value="L">
                             <label class="custom-control-label" for="size-4">L</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-5" name="size">
+                            <input type="radio" class="custom-control-input" id="size-5" name="size" value="XL">
                             <label class="custom-control-label" for="size-5">XL</label>
                         </div>
-                    </form>
-                </div>
-                <div class="d-flex mb-4">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
-                    <form>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-1" name="color">
+                            <input type="radio" class="custom-control-input" id="color-1" name="color" value="Black">
                             <label class="custom-control-label" for="color-1">Black</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-2" name="color">
+                            <input type="radio" class="custom-control-input" id="color-2" name="color" value="White">
                             <label class="custom-control-label" for="color-2">White</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-3" name="color">
+                            <input type="radio" class="custom-control-input" id="color-3" name="color" value="Red">
                             <label class="custom-control-label" for="color-3">Red</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-4" name="color">
+                            <input type="radio" class="custom-control-input" id="color-4" name="color" value="Blue">
                             <label class="custom-control-label" for="color-4">Blue</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-5" name="color">
+                            <input type="radio" class="custom-control-input" id="color-5" name="color" value="Green">
                             <label class="custom-control-label" for="color-5">Green</label>
                         </div>
-                    </form>
-                </div>
-                <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus" >
-                            <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+            </form>
+            <div class="d-flex align-items-center mb-4 pt-2">
+                <div class="input-group quantity mr-3" style="width: 130px;">
+                    <div class="input-group-btn">
+                        <button type="button" id="minusBtn" class="btn btn-primary btn-minus" >
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <input id="qty" name="quantity" type="text" class="form-control bg-secondary text-center" value="1">
+                    <div class="input-group-btn">
+                        <button type="button" id="plusBtn" class="btn btn-primary btn-plus">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
+            </div>
+            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Check Out</button>
+
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
                     <div class="d-inline-flex">
@@ -583,6 +584,26 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Javascript -->
+    <script>
+        let counter = 1;
+        const PBtn = document.querySelector("#plusBtn");
+        const MBtn = document.querySelector("#minusBtn");
+        const quntity = document.querySelector("#qty");
+        function plusClick(){
+            counter += 1;
+            quntity.value = counter;
+        }
+
+        function minusClick(){
+            if(counter === 1) return;
+            counter -= 1;
+            quntity.value = counter;
+        }
+        PBtn.addEventListener("click", plusClick);
+        MBtn.addEventListener("click", minusClick);
+    </script>
 </body>
 
 </html>

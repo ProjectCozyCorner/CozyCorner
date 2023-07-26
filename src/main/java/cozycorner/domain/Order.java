@@ -23,12 +23,15 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetailList = new ArrayList<>();
 
     @Column(name = "order_date")
     @CreationTimestamp
     private LocalDateTime orderDate;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @Column(name = "receiver_zipcode")
     private String receiverZipcode;
@@ -44,4 +47,26 @@ public class Order {
 
     @Column(name = "receiver_phone")
     private String receiverPhone;
+
+    public void addOrderItem(OrderDetail orderDetail){
+        this.orderDetailList.add(orderDetail);
+        orderDetail.setOrder(this);
+    }
+
+    public static Order createOrder(User user, OrderDetail... orderDetails){
+        Order order = new Order();
+        order.setUser(user);
+        for(OrderDetail orderDetail : orderDetails){
+            order.addOrderItem(orderDetail);
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice(){
+        return orderDetailList.stream()
+                .mapToInt(OrderDetail::getGoodsPrice)
+                .sum();
+    }
 }

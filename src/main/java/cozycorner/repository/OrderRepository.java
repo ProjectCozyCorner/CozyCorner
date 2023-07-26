@@ -13,6 +13,10 @@ import java.util.List;
 public class OrderRepository {
     private final EntityManager em;
 
+    public void save(Order order){
+        em.persist(order);
+    }
+
     public List<Order> findOrderListByUserId(Long userId) {
         return em.createQuery("select o from Order o where o.user.userId = :userId").setParameter("userId", userId).getResultList();
     }

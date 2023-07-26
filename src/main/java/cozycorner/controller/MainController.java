@@ -41,6 +41,7 @@ public class MainController {
     public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model) {
         Goods one = goodsService.findOne(goodsId);
         model.addAttribute("good", one);
+        model.addAttribute("checkOutForm", new CheckOutForm());
         return "detail";
     }
 
