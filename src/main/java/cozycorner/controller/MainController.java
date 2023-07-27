@@ -1,6 +1,7 @@
 package cozycorner.controller;
 
 import cozycorner.domain.Goods;
+import cozycorner.dto.CheckOutForm;
 import cozycorner.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,17 +33,12 @@ public class MainController {
         return "cart";
     }
 
-    @GetMapping("/checkOut")
-    public String checkOut() {
-        return "checkout";
-    }
-
     @GetMapping("/shopDetail/{goodsId}")
     public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model) {
         Goods one = goodsService.findOne(goodsId);
         model.addAttribute("good", one);
         model.addAttribute("checkOutForm", new CheckOutForm());
-        return "detail";
+        return "/order/detail";
     }
 
     @GetMapping("/contact")

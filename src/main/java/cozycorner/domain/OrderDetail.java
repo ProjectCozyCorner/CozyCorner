@@ -36,6 +36,7 @@ public class OrderDetail {
         orderDetail.setGoods(good);
         orderDetail.setGoodsPrice(orderPrice);
         orderDetail.setOrderCount(count);
+        orderDetail.setRefundCheck("N");
 
         good.removeStock(count);
         return orderDetail;

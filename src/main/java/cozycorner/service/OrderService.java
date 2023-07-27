@@ -1,9 +1,6 @@
 package cozycorner.service;
 
-import cozycorner.domain.Goods;
-import cozycorner.domain.Order;
-import cozycorner.domain.OrderDetail;
-import cozycorner.domain.User;
+import cozycorner.domain.*;
 import cozycorner.repository.GoodsRepository;
 import cozycorner.repository.OrderRepository;
 import cozycorner.repository.UserRepository;
@@ -31,7 +28,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Long order(Long userId, Long goodsId, int count){
+    public Long order(Long userId, Long goodsId, int count, Address address){
         //엔티티 조회(영속상태의 엔티티 조회를 위함)
         User user = userRepository.findOne(userId);
         Goods good = goodsRepository.findOne(goodsId);
@@ -40,7 +37,7 @@ public class OrderService {
         OrderDetail orderDetail = OrderDetail.createOrderDetail(good, good.getGoodsPrice(), count);
 
         //주문 생성
-        Order order = Order.createOrder(user, orderDetail);
+        Order order = Order.createOrder(user, address, orderDetail);
 
         orderRepository.save(order);
 

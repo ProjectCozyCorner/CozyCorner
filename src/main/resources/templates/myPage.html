@@ -35,7 +35,7 @@
                 $("#orderDetail").html(result);
             })
             .fail(function(xhr, status, errorThrown){
-                $("text").html("에러 발생 <br>")
+                $("#text").html("에러 발생 <br>")
                     .append("오류명 : " + errorThrown + "<br>")
                     .append("상태 : " + status)
             })

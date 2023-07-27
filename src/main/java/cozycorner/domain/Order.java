@@ -1,5 +1,6 @@
 package cozycorner.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,12 +54,17 @@ public class Order {
         orderDetail.setOrder(this);
     }
 
-    public static Order createOrder(User user, OrderDetail... orderDetails){
+    public static Order createOrder(User user, Address address, OrderDetail... orderDetails){
         Order order = new Order();
         order.setUser(user);
         for(OrderDetail orderDetail : orderDetails){
             order.addOrderItem(orderDetail);
         }
+        order.setReceiverAddress(address.getUserAddress());
+        order.setReceiverAddressDetail(address.getUserAddressDetail());
+        order.setReceiverZipcode(address.getUserZipcode());
+        order.setReceiverName(user.getUsername());
+        order.setReceiverPhone(user.getUserPhone());
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
         return order;

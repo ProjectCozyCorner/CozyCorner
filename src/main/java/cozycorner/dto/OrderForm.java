@@ -1,4 +1,4 @@
-package cozycorner.controller;
+package cozycorner.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +16,5 @@ public class OrderForm {
     private Long userId;
     private Long goodsId;
     private int orderCount;
+    private String email;
 }
