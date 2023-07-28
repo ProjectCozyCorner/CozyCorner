@@ -35,14 +35,14 @@ public class OrderController {
     public String myOrderList(@PathVariable("userId") Long userId, Model model){
         List<Order> ordersByUserId = orderService.findOrdersByUserId(userId);
         model.addAttribute("orders", ordersByUserId);
-        return "/order/orderList";
+        return "order/orderList";
     }
 
     @GetMapping("/order/{orderId}/orderDetailList")
     public String myOrderDetailList(@PathVariable("orderId") Long orderId, Model model){
         List<OrderDetail> orderListByOrderId = orderService.findOrderListByOrderId(orderId);
         model.addAttribute("orderDetails", orderListByOrderId);
-        return "/order/orderDetailList";
+        return "order/orderDetailList";
     }
 
     @PostMapping("/order/checkOut")
@@ -56,7 +56,7 @@ public class OrderController {
         model.addAttribute("form", form);
         model.addAttribute("orderForm", new OrderForm());
         model.addAttribute("addresses", addresses);
-        return "/order/checkout";
+        return "order/checkout";
     }
 
     @PostMapping("/order/new")

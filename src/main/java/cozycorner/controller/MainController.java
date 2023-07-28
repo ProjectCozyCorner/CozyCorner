@@ -38,7 +38,7 @@ public class MainController {
         Goods one = goodsService.findOne(goodsId);
         model.addAttribute("good", one);
         model.addAttribute("checkOutForm", new CheckOutForm());
-        return "/order/detail";
+        return "order/detail";
     }
 
     @GetMapping("/contact")

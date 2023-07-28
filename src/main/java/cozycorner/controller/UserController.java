@@ -24,7 +24,7 @@ public class UserController {
     public String userAbout(@PathVariable("userId") Long userId, Model model){
         User user = userService.findOne(userId);
         model.addAttribute("user", user);
-        return "/user/userInfo";
+        return "user/userInfo";
     }
 
 
