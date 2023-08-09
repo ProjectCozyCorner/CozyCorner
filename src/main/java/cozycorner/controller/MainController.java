@@ -35,6 +35,7 @@ public class MainController {
 
     @GetMapping("/shopDetail/{goodsId}")
     public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model) {
+        goodsService.updateHits(goodsId);
         Goods one = goodsService.findOne(goodsId);
         model.addAttribute("good", one);
         model.addAttribute("checkOutForm", new CheckOutForm());

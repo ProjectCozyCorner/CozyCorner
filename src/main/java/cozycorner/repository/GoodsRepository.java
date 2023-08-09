@@ -19,4 +19,9 @@ public class GoodsRepository {
     public List<Goods> findAll(){
         return em.createQuery("select g from Goods g").getResultList();
     }
+
+    public void updateHits(Long goodsId){
+        Goods goods = em.find(Goods.class, goodsId);
+        goods.setGoodsHits(goods.getGoodsHits() + 1);
+    }
 }

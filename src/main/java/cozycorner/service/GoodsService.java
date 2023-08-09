@@ -18,4 +18,9 @@ public class GoodsService {
     public Goods findOne(Long goodsId) {return goodsRepository.findOne(goodsId);}
 
     public List<Goods> findGoodsList(){return goodsRepository.findAll();}
+
+    @Transactional
+    public void updateHits(Long goodsId){
+        goodsRepository.updateHits(goodsId);
+    }
 }

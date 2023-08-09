@@ -35,6 +35,9 @@ public class Goods {
     @Column(name = "goods_desc")
     private String goodsDesc;
 
+    @Column(name = "goods_img_url")
+    private String goodsImgUrl;
+
     @Column(name = "goods_reg_date")
     @CreationTimestamp
     private LocalDateTime goodsRegDate;
