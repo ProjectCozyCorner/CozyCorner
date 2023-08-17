@@ -15,6 +15,7 @@ import java.util.List;
 public class Goods {
 
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "goods_id")
     private Long goodsId;
 
     @OneToMany(mappedBy = "goods")

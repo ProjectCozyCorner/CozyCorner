@@ -10,10 +10,10 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-            <a href="/home" class="nav-item nav-link active">Home</a>
-            <a href="/shop" class="nav-item nav-link">Shop</a>
-            <a href="/cart" class="nav-item nav-link">Shopping Cart</a>
-            <a href="/contact" class="nav-item nav-link">Contact</a>
+            <a href="/home" id="home" class="nav-item nav-link">Home</a>
+            <a href="/shop" id="shop" class="nav-item nav-link">Shop</a>
+            <a href="/cart" id="cart" class="nav-item nav-link">Shopping Cart</a>
+            <a href="/contact" id="contact" class="nav-item nav-link">Contact</a>
         </div>
         <div class="navbar-nav ml-auto py-0" sec:authorize="isAuthenticated()" href="/user/logout">
             <a href="/logout" class="nav-item nav-link">Logout</a>

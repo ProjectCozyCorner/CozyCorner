@@ -16,6 +16,18 @@
         }
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
+
+        const currentUrl = window.location.href;
+        if(currentUrl.includes('home')){
+            $('#home').toggleClass('active');
+        }else if(currentUrl.includes('shop')){
+            $('#shop').toggleClass('active');
+        }else if(currentUrl.includes('cart')){
+            $('#cart').toggleClass('active');
+        }else if(currentUrl.includes('contact')){
+            $('#contact').toggleClass('active');
+        }
+
     });
     
     
