@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Cart implements Serializable {
 
     @Id @Column(name = "cart_id")
-    private String cartId;
+    private Long cartId;
 
     @Id @ManyToOne
     @JoinColumn(name = "goods_id")
