@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "login/login";
     }
 
     @GetMapping(value = "/logout")
@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signup() {
-        return "signup";
+        return "login/signup";
     }
 
     @PostMapping("/signup")
@@ -51,6 +51,6 @@ public class UserController {
 
     @GetMapping("/myPage")
     public String myPage(){
-        return "myPage";
+        return "user/myPage";
     }
 }

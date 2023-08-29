@@ -20,7 +20,7 @@ public class GoodsController {
     public String shop(Model model) {
         List<Goods> goodsList = goodsService.findGoodsList();
         model.addAttribute("goods", goodsList);
-        return "shop";
+        return "goods/shop";
     }
 
 
@@ -31,6 +31,6 @@ public class GoodsController {
         Goods one = goodsService.findOne(goodsId);
         model.addAttribute("good", one);
         model.addAttribute("checkOutForm", new CheckOutForm());
-        return "order/detail";
+        return "goods/detail";
     }
 }

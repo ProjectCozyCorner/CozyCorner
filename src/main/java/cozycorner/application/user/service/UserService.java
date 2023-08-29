@@ -13,4 +13,6 @@ public class UserService{
     public void save(User user){
         userRepository.save(user);
     }
+
+    public User findByUserEmail(String userEmail){return  userRepository.findByUserEmail(userEmail);}
 }

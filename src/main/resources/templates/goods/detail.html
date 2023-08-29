@@ -95,15 +95,6 @@
             <div class="col-lg-7 pb-5">
                 <form role="form" action="/order/checkOut" method="post" th:object="${checkOutForm}">
                     <input type="hidden" name="goodsId" th:value="${good.goodsId}">
-                    <!--시큐리티 설정 전 임시로 사용하는 유저 id 얻는 스크립트-->
-                    <div style="visibility: hidden" id="secId" sec:authentication="principal.userId"></div>
-                    <input id="userId" type="hidden" name="userId" value="">
-                    <script>
-                        const secId = document.querySelector("#secId");
-                        const userId = document.querySelector("#userId");
-
-                        userId.value = secId.textContent;
-                    </script>
                     <h3 class="font-weight-semi-bold" th:text="${good.goodsName}"></h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">

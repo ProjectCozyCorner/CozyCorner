@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<html>
 <head th:replace="fragments/header :: header">
     <title>EShopper - Bootstrap Shop Template</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -186,7 +186,6 @@
 
             <!-- Shop Product Start -->
             <div class="col-lg-9 col-md-12">
-                <div style="visibility: hidden" id="secId" sec:authentication="principal.userId"></div>
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -268,11 +267,7 @@
     <script>
         function addToCart(goodsId){
             //ajax로 장바구니 추가후 장바구니로 이동할지 아니면 계속 쇼핑할 지 선택
-            const userId = document.querySelector("#secId");
-            alert(goodsId);
-            alert(userId.textContent);
-
-            const map = {"userId" : parseInt(userId.textContent), "goodsId" : goodsId};
+            const map = {"goodsId" : goodsId};
 
             $.ajax({
                 url : "/cart/add",

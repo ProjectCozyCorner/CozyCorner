@@ -10,8 +10,12 @@ import cozycorner.application.order.dto.OrderForm;
 import cozycorner.application.address.service.AddressService;
 import cozycorner.application.goods.service.GoodsService;
 import cozycorner.application.order.service.OrderService;
+import cozycorner.application.user.domain.CustomUserDetails;
+import cozycorner.application.user.domain.User;
+import cozycorner.application.user.service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,12 +34,16 @@ public class OrderController {
 
     private final OrderService orderService;
     private final GoodsService goodsService;
-//    private final TempUserService tempUserService;
+    private final UserService userService;
     private final AddressService addressService;
 
     @GetMapping("/order/{userId}/myPage")
-    public String myOrderList(@PathVariable("userId") Long userId, Model model){
-        List<Order> ordersByUserId = orderService.findOrdersByUserId(userId);
+    public String myOrderList(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+        User user = userService.findByUserEmail(customUserDetails.getUsername());
+
+        List<Order> ordersByUserId = orderService.findOrdersByUserId(user.getUserId());
         model.addAttribute("orders", ordersByUserId);
         return "order/orderList";
     }
@@ -49,11 +57,14 @@ public class OrderController {
 
     @PostMapping("/order/checkOut")
     public String checkOutForm(@Valid CheckOutForm form, BindingResult result, Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+
         Goods good = goodsService.findOne(form.getGoodsId());
         List<Address> addresses = addressService.findAllByUserId(form.getUserId());
-//        User user = tempUserService.findOne(form.getUserId());
+        User user = userService.findByUserEmail(customUserDetails.getUsername());
         model.addAttribute("goods", good);
-//        model.addAttribute("user", user);
+        model.addAttribute("user", user);
         model.addAttribute("totalPrice", form.getQuantity() * good.getGoodsPrice() + 3500);
         model.addAttribute("form", form);
         model.addAttribute("orderForm", new OrderForm());
