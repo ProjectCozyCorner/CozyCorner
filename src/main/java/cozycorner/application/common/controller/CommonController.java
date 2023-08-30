@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CommonController {
-    @GetMapping("/home")
+    @GetMapping("/common/home")
     public String home() {
         return "index";
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/common/contact")
     public String contact() {
-        return "contact";
+        return "common/contact";
     }
 }

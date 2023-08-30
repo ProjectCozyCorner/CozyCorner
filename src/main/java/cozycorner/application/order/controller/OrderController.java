@@ -37,7 +37,7 @@ public class OrderController {
     private final UserService userService;
     private final AddressService addressService;
 
-    @GetMapping("/order/{userId}/myPage")
+    @GetMapping("/order/myOrderList")
     public String myOrderList(Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomUserDetails customUserDetails = (CustomUserDetails) principal;
@@ -55,14 +55,17 @@ public class OrderController {
         return "order/orderDetailList";
     }
 
-    @PostMapping("/order/checkOut")
+    @PostMapping("/order/payment")
     public String checkOutForm(@Valid CheckOutForm form, BindingResult result, Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomUserDetails customUserDetails = (CustomUserDetails) principal;
 
+        System.out.println("form.getGoodsId() = " + form.getGoodsId());
+        System.out.println("form.getQuantity() = " + form.getQuantity());
+        
         Goods good = goodsService.findOne(form.getGoodsId());
-        List<Address> addresses = addressService.findAllByUserId(form.getUserId());
         User user = userService.findByUserEmail(customUserDetails.getUsername());
+        List<Address> addresses = addressService.findAllByUserId(user.getUserId());
         model.addAttribute("goods", good);
         model.addAttribute("user", user);
         model.addAttribute("totalPrice", form.getQuantity() * good.getGoodsPrice() + 3500);
@@ -74,9 +77,6 @@ public class OrderController {
 
     @PostMapping("/order/new")
     public String order(@Valid OrderForm form){
-        System.out.println("form.getUserId() = " + form.getUserId());
-        System.out.println("form.getGoodsId() = " + form.getGoodsId());
-        System.out.println("form.getOrderCount() = " + form.getOrderCount());
         Address address = new Address();
         address.setUserAddress(form.getReceiverAddress());
         address.setUserAddressDetail(form.getReceiverAddressDetail());
@@ -85,19 +85,6 @@ public class OrderController {
         System.out.println("address = " + address.getUserAddressDetail());
         System.out.println("address = " + address.getUserZipcode());
         orderService.order(form.getUserId(), form.getGoodsId(), form.getOrderCount(), address);
-        return "redirect:/home";
-    }
-
-    @GetMapping("/order/address/{addressId}")
-    @ResponseBody
-    public AddressForm AddressForm(@PathVariable("addressId") Long addressId){
-        Address address = addressService.findOne(addressId);
-        AddressForm addressForm = new AddressForm();
-        addressForm.setAddressId(address.getAddressId());
-        addressForm.setUserAddress(address.getUserAddress());
-        addressForm.setUserAddressDetail(address.getUserAddressDetail());
-        addressForm.setUserAddressNickname(address.getUserAddressNickname());
-        addressForm.setUserAddressZipcode(address.getUserZipcode());
-        return addressForm;
+        return "redirect:/common/home";
     }
 }

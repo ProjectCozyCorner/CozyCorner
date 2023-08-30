@@ -16,7 +16,7 @@ import java.util.List;
 public class GoodsController {
     private final GoodsService goodsService;
 
-    @GetMapping("/shop")
+    @GetMapping("/goods/shop")
     public String shop(Model model) {
         List<Goods> goodsList = goodsService.findGoodsList();
         model.addAttribute("goods", goodsList);
@@ -25,7 +25,7 @@ public class GoodsController {
 
 
 
-    @GetMapping("/shopDetail/{goodsId}")
+    @GetMapping("/goods/shopDetail/{goodsId}")
     public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model) {
         goodsService.updateHits(goodsId);
         Goods one = goodsService.findOne(goodsId);

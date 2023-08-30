@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter @Setter
 public class CheckOutForm {
     private Long goodsId;
-    private Long userId;
     private int quantity;
     private String size;
     private String color;

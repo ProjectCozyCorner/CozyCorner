@@ -30,8 +30,15 @@ public class CartService {
         cartRepository.addCart(cart);
     }
 
-    public List<Cart> findCart(String email){
+    @Transactional
+    public void deleteFromCart(Long cartId){
+        cartRepository.deleteByCartId(cartId);
+    }
 
+    public List<Cart> findCart(String email){
         return cartRepository.findAllCart(email);
     }
+
+
+    public Cart findCartById(Long cartId){return cartRepository.findCartById(cartId);}
 }

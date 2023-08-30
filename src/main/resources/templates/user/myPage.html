@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>MyPage</title>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 </head>
 <body>
-<a class="text-dark mb-2" href="/home"><i class="fa fa-angle-right mr-2"></i>Home</a>
-<div style="visibility: hidden" id="userId" sec:authentication="principal.userId"></div>
+<a class="text-dark mb-2" href="/common/home"><i class="fa fa-angle-right mr-2"></i>Home</a>
 <input id="userAbout" type="button" class="btn btn-lg btn-info" value="회원 정보">
 <input id="orderList" type="button" class="btn btn-lg btn-info" value="주문 내역">
 
@@ -22,9 +21,6 @@
 </html>
 
 <script>
-    const userId = document.getElementById("userId").textContent;
-
-
     function orderDetail(orderId){
         $.ajax({
             url : "/order/"+ orderId + "/orderDetailList",
@@ -46,10 +42,9 @@
 
 
     $("#orderList").click(function(){
-        // alert("userId :" + userId);
         $("#orderDetail").empty();
         $.ajax({
-            url : "/order/"+ userId + "/myPage",
+            url : "/order/myOrderList",
             method : "GET",
             dataType : 'html'
         })
@@ -68,10 +63,9 @@
 
 
     $("#userAbout").click(function(){
-        // alert("userId :" + userId);
         $("#orderDetail").empty();
         $.ajax({
-            url : "/user/"+ userId + "/myPage",
+            url : "/user/userInfo",
             method : "GET",
             dataType : 'html'
         })

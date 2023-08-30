@@ -30,28 +30,22 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers()
-                .xssProtection()
-                .and()
-                .contentSecurityPolicy("script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net blob:");
-
-        http
-                //.csrf().disable()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/login","/signup", "/contact", "/shop").permitAll()
+                .antMatchers("/", "/common/**", "/user/**","/goods/**", "/order/**", "/cart/**").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/user/login")
                 .loginProcessingUrl("/loginProc")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/common/home", true)
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/home")
+                .logoutSuccessUrl("/common/home")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .invalidateHttpSession(true)
                 .and()

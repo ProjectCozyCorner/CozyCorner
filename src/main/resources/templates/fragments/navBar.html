@@ -10,18 +10,18 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-            <a href="/home" id="home" class="nav-item nav-link">Home</a>
-            <a href="/shop" id="shop" class="nav-item nav-link">Shop</a>
-            <a href="/cart" id="cart" class="nav-item nav-link">Shopping Cart</a>
-            <a href="/contact" id="contact" class="nav-item nav-link">Contact</a>
+            <a href="/common/home" id="home" class="nav-item nav-link">Home</a>
+            <a href="/goods/shop" id="shop" class="nav-item nav-link">Shop</a>
+            <a href="/cart/list" id="cart" class="nav-item nav-link">Shopping Cart</a>
+            <a href="/common/contact" id="contact" class="nav-item nav-link">Contact</a>
         </div>
         <div class="navbar-nav ml-auto py-0" sec:authorize="isAuthenticated()" href="/user/logout">
-            <a href="/logout" class="nav-item nav-link">Logout</a>
-            <a href="/myPage" class="nav-item nav-link">MyPage</a>
+            <a href="/user/logout" class="nav-item nav-link">Logout</a>
+            <a href="/user/myPage" class="nav-item nav-link">MyPage</a>
         </div>
         <div class="navbar-nav ml-auto py-0" sec:authorize="!isAuthenticated()">
-            <a href="/login" class="nav-item nav-link">Login</a>
-            <a href="/signup" class="nav-item nav-link">Register</a>
+            <a href="/user/login" class="nav-item nav-link">Login</a>
+            <a href="/user/signup" class="nav-item nav-link">Register</a>
         </div>
     </div>
 </nav>

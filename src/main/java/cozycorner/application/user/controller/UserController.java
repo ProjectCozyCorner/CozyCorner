@@ -1,5 +1,6 @@
 package cozycorner.application.user.controller;
 
+import cozycorner.application.user.domain.CustomUserDetails;
 import cozycorner.application.user.domain.User;
 import cozycorner.application.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,36 +21,40 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/user/{userId}/myPage")
-    public String userAbout(@PathVariable("userId") Long userId, Model model){
-//        User user = userService.findOne(userId);
-//        model.addAttribute("user", user);
+    @GetMapping("/user/userInfo")
+    public String userAbout(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+
+        User user = userService.findByUserEmail(customUserDetails.getUsername());
+        model.addAttribute("user", user);
         return "user/userInfo";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login() {
-        return "login/login";
+        return "user/login";
     }
 
-    @GetMapping(value = "/logout")
+    @GetMapping(value = "/user/logout")
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/login";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/user/signup")
     public String signup() {
-        return "login/signup";
+        return "user/signup";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/user/signup")
     public String signup(User user) {
+        user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
         userService.save(user);
         return "redirect:/";
     }
 
-    @GetMapping("/myPage")
+    @GetMapping("/user/myPage")
     public String myPage(){
         return "user/myPage";
     }

@@ -1,5 +1,6 @@
 package cozycorner.application.goods.repository;
 
+import cozycorner.application.cart.domain.Cart;
 import cozycorner.application.goods.domain.Goods;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
