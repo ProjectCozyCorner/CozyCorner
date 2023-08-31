@@ -11,8 +11,10 @@ public class UserService{
     private final UserRepository userRepository;
 
     public void save(User user){
+        user.setUserGrade("일반");
         userRepository.save(user);
     }
 
     public User findByUserEmail(String userEmail){return  userRepository.findByUserEmail(userEmail);}
+
 }

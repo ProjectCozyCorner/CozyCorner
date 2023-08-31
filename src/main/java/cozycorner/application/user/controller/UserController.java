@@ -4,6 +4,7 @@ import cozycorner.application.user.domain.CustomUserDetails;
 import cozycorner.application.user.domain.User;
 import cozycorner.application.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -33,7 +34,7 @@ public class UserController {
 
     @GetMapping("/user/login")
     public String login() {
-        return "user/login";
+        return "/user/login";
     }
 
     @GetMapping(value = "/user/logout")
@@ -42,16 +43,19 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user/signup")
-    public String signup() {
-        return "user/signup";
-    }
-
     @PostMapping("/user/signup")
     public String signup(User user) {
         user.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/login";
+    }
+
+    // 회원 수 카운팅 (ID 중복 체크)
+    @GetMapping("/user/user-count")
+    @ResponseBody
+    public int countMemberByLoginId(@RequestParam final String userEmail) {
+        User user = userService.findByUserEmail(userEmail);
+        return user == null ? 0 : 1;
     }
 
     @GetMapping("/user/myPage")
