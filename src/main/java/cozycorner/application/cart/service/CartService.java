@@ -31,8 +31,8 @@ public class CartService {
     }
 
     @Transactional
-    public void deleteFromCart(Long cartId){
-        cartRepository.deleteByCartId(cartId);
+    public Long deleteFromCart(Long cartId){
+        return cartRepository.deleteByCartId(cartId);
     }
 
     public List<Cart> findCart(String email){

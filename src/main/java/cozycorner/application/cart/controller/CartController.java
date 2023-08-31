@@ -67,11 +67,14 @@ public class CartController {
     @PostMapping("/cart/delete")
     @ResponseBody
     public HashMap<String, String> deleteFromCart(@RequestBody HashMap<String, Object> map){
-        Long cartId = Long.valueOf(map.get("cartId").toString());
-        //delete 쿼리가 안됨,,,
-        cartService.deleteFromCart(cartId);
         HashMap<String, String> result = new HashMap<>();
-        result.put("result", "success");
+        Long cartId = Long.valueOf(map.get("cartId").toString());
+//        Cart cart = cartService.findCartById(cartId);
+        //delete 쿼리가 안됨,,,
+        Long executeQueryCnt = cartService.deleteFromCart(cartId);
+        if (executeQueryCnt >= 1) result.put("result", "success");
+        else result.put("result", "fail");
+
         return result;
     }
 }

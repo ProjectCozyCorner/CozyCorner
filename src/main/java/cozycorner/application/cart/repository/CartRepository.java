@@ -1,13 +1,10 @@
 package cozycorner.application.cart.repository;
 
-import com.mysema.commons.lang.Assert;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import cozycorner.application.cart.domain.Cart;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import static cozycorner.application.cart.domain.QCart.cart;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartRepository {
     private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
 
     public int maxCartId(){
         return Integer.parseInt(em.createQuery("select max(c.cartId) from Cart c").getResultList().get(0).toString());
@@ -33,7 +31,10 @@ public class CartRepository {
     public Cart findCartById(Long cartId) {return em.find(Cart.class, cartId);}
 
 
-    @Modifying
-    @Query("delete from Cart where cartId = :cartId")
-    public void deleteByCartId(@Param("cartId") Long cartId){}
+    public Long deleteByCartId(Long cartId){
+        return queryFactory
+                .delete(cart)
+                .where(cart.cartId.eq(cartId))
+                .execute();
+    }
 }

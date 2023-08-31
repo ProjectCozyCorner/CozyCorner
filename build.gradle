@@ -40,7 +40,7 @@ dependencies {
 
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	compileOnly 'org.projectlombok:lombok'
@@ -63,14 +63,10 @@ querydsl {
 sourceSets {
 	main.java.srcDir querydslDir
 }
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
 compileQuerydsl{
 	options.annotationProcessorPath = configurations.querydsl
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-	querydsl.extendsFrom compileClasspath
 }
 //querydsl 추가 끝
